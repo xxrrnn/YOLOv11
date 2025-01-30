@@ -26,12 +26,12 @@ conda install pytorch torchvision torchaudio cudatoolkit=10.2 -c pytorch-lts
 * Configure your dataset path in `main.py` for training
 * Run `bash main.sh $ --train` for training, `$` is number of GPUs
 
-### 🧪 Test
+### 🧪 Test/Validate
 
 * Configure your dataset path in `main.py` for testing
-* Run `python main.py --test` for testing
+* Run `python main.py --Validate` for validation
 
-### 🔍 Inference
+### 🔍 Inference (Webcam or Video)
 
 * Run `python main.py --inference` for inference
 

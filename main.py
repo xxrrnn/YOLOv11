@@ -166,7 +166,7 @@ def validate(args, params, model=None):
 
     if not model:
         args.plot = True
-        model = torch.load(f='weights/v11_x.pt', map_location='cuda')
+        model = torch.load(f='weights/best.pt', map_location='cuda')
         model = model['model'].float().fuse()
 
     # model.half()
@@ -215,7 +215,7 @@ def inference(args, params):
     model.half()
     model.eval()
 
-    camera = cv2.VideoCapture('res2.mp4')
+    camera = cv2.VideoCapture('2.mp4')
 
     # Get video properties
     width = int(camera.get(cv2.CAP_PROP_FRAME_WIDTH))
@@ -233,19 +233,19 @@ def inference(args, params):
             image = frame.copy()
             shape = image.shape[:2]
 
-            r = args.input_size / max(shape[0], shape[1])
+            r = args.inp_size / max(shape[0], shape[1])
             if r != 1:
                 resample = cv2.INTER_LINEAR if r > 1 else cv2.INTER_AREA
                 image = cv2.resize(image, dsize=(int(shape[1] * r), int(shape[0] * r)), interpolation=resample)
             height, width = image.shape[:2]
 
             # Scale ratio (new / old)
-            r = min(1.0, args.input_size / height, args.input_size / width)
+            r = min(1.0, args.inp_size / height, args.inp_size / width)
 
             # Compute padding
             pad = int(round(width * r)), int(round(height * r))
-            w = (args.input_size - pad[0]) / 2
-            h = (args.input_size - pad[1]) / 2
+            w = (args.inp_size - pad[0]) / 2
+            h = (args.inp_size - pad[1]) / 2
 
             if (width, height) != pad:  # resize
                 image = cv2.resize(image, pad, interpolation=cv2.INTER_LINEAR)
@@ -264,7 +264,7 @@ def inference(args, params):
             # Inference
             outputs = model(x)
             # NMS
-            outputs = util.non_max_suppression(outputs, 0.35, 0.7)[0]
+            outputs = util.non_max_suppression(outputs, 0.15, 0.2)[0]
 
             if outputs is not None:
                 outputs[:, [0, 2]] -= w
@@ -301,9 +301,7 @@ def main():
     parser.add_argument('--num-cls', type=int, default=80)
     parser.add_argument('--inp-size', type=int, default=640)
     parser.add_argument('--batch-size', type=int, default=64)
-    # parser.add_argument('--data-dir', type=str, default='coco_test')
-    parser.add_argument('--data-dir', type=str,
-                        default='/media/yusuf/data/xvision/DET/Datasets/COCO_custom')
+    parser.add_argument('--data-dir', type=str, default='COCO')
     parser.add_argument('--plot', action='store_true')
     parser.add_argument('--train', action='store_true')
     parser.add_argument('--validate', action='store_true')

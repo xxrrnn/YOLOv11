@@ -304,7 +304,7 @@ def main():
     parser.add_argument('--num-cls', type=int, default=80)
     parser.add_argument('--inp-size', type=int, default=640)
     parser.add_argument('--batch-size', type=int, default=64)
-    parser.add_argument('--data-dir', type=str, default='COCO')
+    parser.add_argument('--data-dir', type=str, default='/media/8T3/ykqiu/rn_xu/Projects/yolo_on_FPGA/YOLOv11/Dataset/coco2017')
     parser.add_argument('--plot', action='store_true')
     parser.add_argument('--train', action='store_true')
     parser.add_argument('--validate', action='store_true')

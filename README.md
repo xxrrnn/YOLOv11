@@ -72,3 +72,60 @@ If you find this project helpful, give us a star ⭐
 
 * https://github.com/ultralytics/ultralytics
 # YOLOv11
+
+
+├── coco-labels
+│   ├── LICENSE
+│   ├── README.md
+│   └── scripts
+│       └── python
+│           └── dump_coco_labels.py
+├── Dataset
+│   ├── coco2017
+│   │   ├── annotations
+│   │   │   ├── captions_train2017.json
+│   │   │   ├── captions_val2017.json
+│   │   │   ├── instances_train2017.json
+│   │   │   ├── instances_val2017.json
+│   │   │   ├── person_keypoints_train2017.json
+│   │   │   └── person_keypoints_val2017.json
+│   │   ├── images
+│   │   │   ├── test2017
+│   │   │   ├── train2017
+│   │   │   └── val2017
+│   │   └── labels
+│   │       ├── val2017
+│   │       └── val2017.cache
+│   ├── convert.py
+│   └── download.py
+├── main.py
+├── main.sh
+├── nets
+│   ├── nn.py
+│   └── __pycache__
+│       └── nn.cpython-39.pyc
+├── README.md
+├── utils
+│   ├── args.yaml
+│   ├── augment.py
+│   ├── dataset.py
+│   ├── __pycache__
+│   │   ├── augment.cpython-39.pyc
+│   │   ├── dataset.cpython-39.pyc
+│   │   └── util.cpython-39.pyc
+│   └── util.py
+└── weights
+    ├── F1_curve.png
+    ├── P_curve.png
+    ├── PR_curve.png
+    ├── R_curve.png
+    └── v11_n.pt
+
+按照如上的方式放好下载的COCO2017(执行download.py)，然后执行：
+find /media/8T3/ykqiu/rn_xu/Projects/yolo_on_FPGA/YOLOv11/Dataset/coco2017/images/val2017 -type f \( -iname "*.jpg" \) > /media/8T3/ykqiu/rn_xu/Projects/yolo_on_FPGA/YOLOv11/Dataset/coco2017/val2017.txt
+
+分别将train、val、test的图片路径放到对应的txt中，用于dataset.py读取
+
+然后执行convert.py，将val2017的label从json中提取出来，放到labels/val2017中，用于validate
+
+validate的命令：python main --validate，data_dir已经提前修改好了

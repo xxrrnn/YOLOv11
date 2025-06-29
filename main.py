@@ -1,4 +1,7 @@
 import os
+import sys
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+
 import csv
 import cv2
 import copy
@@ -166,7 +169,7 @@ def validate(args, params, model=None):
 
     if not model:
         args.plot = True
-        model = torch.load(f='weights/best.pt', map_location='cuda')
+        model = torch.load(f='weights/v11_n.pt', map_location='cuda')
         model = model['model'].float().fuse()
 
     # model.half()

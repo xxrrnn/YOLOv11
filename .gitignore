@@ -1,0 +1,25 @@
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# IDE / Editor specific files
+.vscode/
+.idea/
+
+# Datasets - ignore content within data directories but keep the structure.
+# Add an empty .gitkeep file to any directory you want to preserve.
+Dataset/coco2017/images/**/*
+!Dataset/coco2017/images/**/.gitkeep
+
+Dataset/coco2017/labels/**/*
+!Dataset/coco2017/labels/**/.gitkeep
+
+# Ignore dataset metadata and cache files
+/Dataset/coco2017/annotations/
+/Dataset/coco2017/*.txt
+/Dataset/coco2017/*.cache
+
+# Trained weights, logs, and other outputs
+/weights/
+output*.mp4 

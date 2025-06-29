@@ -138,6 +138,11 @@ class Dataset(data.Dataset):
                                             "format": "xywh"})
             except Exception as e:
                 print(f"Skipping file {img} due to error: {e}")
+        
+        # 明确打印加载的标签数量以供调试
+        num_with_labels = sum(1 for x in cache['labels'] if x['cls'].shape[0] > 0)
+        print(f"--- DEBUG: Of {len(cache['labels'])} images, found {num_with_labels} with labels. ---")
+
         torch.save(cache, path)
         return cache
 

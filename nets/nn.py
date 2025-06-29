@@ -1,6 +1,10 @@
 import math
 import torch
 import torch.nn as nn
+import os
+import sys
+
+
 from utils import util
 
 
@@ -395,3 +399,13 @@ def yolo_v11_x(num_cls=80):
     depth = [2, 2, 2, 2, 2]
     width = [3, 96, 192, 384, 768, 768]
     return YOLO(num_cls, width, depth, csp)
+
+
+class model_cfg():
+    def __init__(self, cfg):
+        if cfg == 'n':
+            self.depth = [0.33, 0.25]
+            self.width = [0.25, 0.5]
+            self.ratio = [0.5, 0.5]
+            self.channel = [64, 128, 256, 512, 1024]
+# ... existing code ...
